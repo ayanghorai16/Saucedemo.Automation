@@ -11,18 +11,10 @@ public static class StepHelper
     public static async Task<string> Capture(IPage page, string testName, string step)
     {
         var root = Config.ArtifactsRoot;
-        var dir = Path.Combine(root, "screenshots", Sanitize(testName));
+        var dir = Path.Combine(root, "AllureReportScreenshots", Sanitize(testName));
         Directory.CreateDirectory(dir);
         var file = Path.Combine(dir, $"{DateTime.UtcNow:yyyyMMdd_HHmmss_fff}_{Sanitize(step)}.png");
         await page.ScreenshotAsync(new PageScreenshotOptions { Path = file, FullPage = true });
-        try
-        {
-            var bytes = await File.ReadAllBytesAsync(file);
-            AllureLifecycle.Instance.AddAttachment(step, "image/png", bytes, "png");
-        }
-        catch
-        {
-        }
         return file;
     }
     public static void AttachText(string name, string content)
@@ -43,5 +35,5 @@ public static class StepHelper
             s = s.Replace(c, '_');
         }
         return s.Replace(" ", "_");
-}
+    }
 }

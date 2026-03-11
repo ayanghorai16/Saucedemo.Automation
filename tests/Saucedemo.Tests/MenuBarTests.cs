@@ -2,10 +2,13 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Saucedemo.Framework.Core;
 using Saucedemo.Framework.Pages;
+using Allure.NUnit;
+using Allure.NUnit.Attributes;
 
 namespace Saucedemo.Tests;
 
-[TestFixture]
+[AllureNUnit]
+[AllureSuite("MenuBar")]
 public class MenuBarTests : BaseTest
 {
     [Test]

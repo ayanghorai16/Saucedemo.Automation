@@ -20,7 +20,6 @@ public sealed class PlaywrightDriver : IAsyncDisposable
         var traceDir = Path.Combine(artifactsRoot, "traces", runId);
         Directory.CreateDirectory(traceDir);
 
-        Microsoft.Playwright.Program.Main(new[] { "install" });
         Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
         var opts = Config.LaunchOptions();
         var browser = Config.Browser;

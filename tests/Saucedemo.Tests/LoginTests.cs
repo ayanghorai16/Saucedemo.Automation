@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Allure.NUnit;
 using Allure.NUnit.Attributes;
 using Microsoft.Playwright;
 using NUnit.Framework;
@@ -12,6 +13,7 @@ using Saucedemo.Framework.Utils;
 
 namespace Saucedemo.Tests;
 
+[AllureNUnit]
 [AllureSuite("Login")]
 public class LoginTests : BaseTest
 {

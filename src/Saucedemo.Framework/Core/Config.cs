@@ -22,7 +22,17 @@ public static class Config
         get
         {
             var root = Environment.GetEnvironmentVariable("ARTIFACTS_DIR");
-            return string.IsNullOrWhiteSpace(root) ? System.IO.Path.Combine(AppContext.BaseDirectory, "artifacts") : root;
+            if (!string.IsNullOrWhiteSpace(root)) return root;
+            
+            var baseDir = AppContext.BaseDirectory;
+            // Try to find solution root by looking for .sln or .slnx
+            var dir = new System.IO.DirectoryInfo(baseDir);
+            while (dir != null && dir.GetFiles("*.sln*").Length == 0)
+            {
+                dir = dir.Parent;
+            }
+            var rootPath = dir?.FullName ?? baseDir;
+            return System.IO.Path.Combine(rootPath, "TestArtifacts");
         }
     }
     public static BrowserTypeLaunchOptions LaunchOptions()
